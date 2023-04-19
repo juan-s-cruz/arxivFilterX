@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+
+<body>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'webFilter/style.css' %}">
+
+<h1><a href="{% url 'index' %}">ArXiv Digest v2.0 -- Feed from: {{dateToDisplay}}</a></h1>
+
+<div class="sideButtonPLeft" >
+    <a class="sideButton" href={{go_back_url}}>&#60; </a>
+</div>
+<div class="conceptsHeader">
+    <div class="leftPanel">
+    <fieldset>
+        <legend><h3>Keywords:</h3></legend>
+        <form action="{% url 'add_word' word_type='white' %}" method="post">
+        {% csrf_token %}
+        <label for="word_toAdd">Whitelist word:</label>
+        <input type="text" name="word_toAdd" id="word_toAdd" pattern="[A-Za-z0-9 ]+">
+        <input type="submit" value="+"><br>
+        </form>
+        <form action="{% url 'add_word' word_type='black' %}" method="post">
+        {% csrf_token %}
+        <label for="word_toAdd">Blacklist word:</label>
+        <input type="text" name="word_toAdd" id="word_toAdd" pattern="[A-Za-Z0-9 ]+">
+        <input type="submit" value="+">
+        </form>
+    </fieldset><br>
+    <div class="dropdown">
+        <label for="resultSizeList">Results to Display:</label><br>
+        <select name="resultSize" id="resultSizeList" onchange="displaySelection()">
+            <option value="" selected="selected" hidden="hidden">Default = 7</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>
+    </div>
+    </div>
+    <div class="lists">
+        <div class="mylist">
+            <form action="{% url 'remove' word_type='white' %}" method="post" id="whiteWords">
+            {% csrf_token %}
+            <label for="whiteWords">Concept whitelist:</label><br>
+            <select name="words_to_remove" size="10" id="whiteWords" multiple>
+                {% if whitelist %}
+                    {% for word in whitelist %}
+                         <option value='{{word.term}}'>{{word.term}}</option>
+                    {% endfor %}
+                {% else %}
+                    <!-- No whitelisted concepts -->
+                {% endif %}
+            </select><br>
+            <input type="submit" value="Remove" id="whiteWords">
+            </form>
+         </div>
+         <div class="mylist">
+            <form action="{% url 'remove' word_type='black' %}" method="post" id="blackWords">
+            {% csrf_token %}
+            <label for="blackWords">Concept blacklist:</label><br>
+            <select name="words_to_remove" size="10" id="blackWords" multiple>
+                {% if blacklist %}
+                    {% for word in blacklist %}
+                         <option value='{{word.term}}'>{{word.term}}</option>
+                    {% endfor %}
+                {% else %}
+                    <!-- No blacklisted concepts -->
+                {% endif %}
+            </select><br>
+            <input type="submit" value="Remove" id="blackWords">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="sideButtonPRight">
+     <a class="sideButton" href={{go_forward_url}}>&#62; </a>
+</div>
+
+{% if highest_ranked_list %}
+    <table>
+    <tr>
+    <th width=30%><h2> Title </h2></th>
+    <th><h2> Abstract </h2></th>
+    </tr>    
+        {% for article in highest_ranked_list %}
+          <tr> <td><b><a href={{article.real_url}}>{{ article.title_text }}</b></a></td>
+               <td class="tdAbstract">{{ article.abstract }}</td>
+          </tr>
+        {% endfor %}
+   </table>
+{% else %}
+    <p style="margin-left:100pt"> No articles are available.</p>
+{% endif %}
+
+<script> MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']],displayMath: [ ['$$','$$'] ]}, svg: { fontCache: 'global' }};</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script> 
+    function displaySelection() {
+        var x = document.getElementById("resultSizeList").value;
+        var raw_url = "{{current_url}}";
+        var url_replaced = raw_url.replace("rank7/", "rank" + x + "/" );
+        window.location.replace(url_replaced);
+    }
+</script>
+ 
+</body>       
+</html>
+

@@ -1,0 +1,158 @@
+body{ 
+    margin-top: -20pt;
+    margin-right: 0px;
+    margin-left: 0px;
+    font-family:Helvetica,sans-serif;
+    text-align: left;
+    }
+
+h1{
+    background-color:#b31b1b;
+    padding-block: 10pt;
+    padding-left:20pt;
+    text-align: left;
+}
+
+h1 a{
+    color:#fff;    
+}
+
+h1 a:visited{
+    color:#fff;
+    background-color:#b31b1b;
+    padding-block: 10pt;
+    padding-left:20pt;
+    text-align: left;
+}
+
+h3{
+    color:#fff;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+table{
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 0pt;
+}
+
+td{
+    border-bottom: 1px solid #ddd;
+    padding-top:7pt;
+    padding-bottom:7pt
+}
+
+.tdAbstract{
+    border-bottom: 1px solid #ddd;
+    padding-top:7pt;
+    padding-bottom:7pt
+    font-size: 12pt;
+}
+
+td a {
+    color: black;
+    text-decoration: underline;
+    font-size: 14pt;
+}
+
+th {
+    background-color: black;
+    color: white;
+    padding-top:10pt;
+}
+
+.sideButtonPLeft, .sideButtonPRight{
+    float: left;
+    width:10%;
+    height:220pt;
+    margin-top: -17pt;
+    line-height: 220pt;
+    padding-bottom: 2pt;
+    padding-top: 2pt;
+}
+
+.sideButtonPRight{
+    float: right;
+}
+
+.sideButtonPLeft:hover{
+    background-color: grey;
+}
+
+.sideButtonPRight:hover{
+    background-color: grey;
+}
+
+.sideButton {
+    text-align: center;
+    display: block;
+    color: white;
+    height:220pt;
+    font-size: 80px;
+    font-family:Helvetica,sans-serif;
+    text-decoration: none;
+}
+
+.sideButton:visited {
+    color: white;
+}
+
+.conceptsHeader{
+    float: left;
+    width:80%;
+    height: 220pt
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: -17pt;
+    background-color: grey;
+    padding-bottom: 2pt;
+    padding-top: 2pt;
+    
+}
+
+.leftPanel{
+    float: left;
+    width:24%;
+    margin-left: 10pt;
+    margin-right: 10pt;
+}
+
+.lists{
+    width:70%;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    margin-top: 0pt;
+    display:inline-block;
+    padding: 0pt;
+}
+
+.mylist{
+   border-style: solid;
+   border-color: white;
+   border-width: 1px;
+   float: left;
+   margin-top: 0pt;
+   width: 45%;
+   text-align: left;
+   font-size: 20px;
+   margin-left: 0pt;
+   padding: 10pt;
+}
+
+select{
+    width: 100%;
+}
+
+.dropdown{
+    float: center;
+    width:80%;
+    margin-left: 10pt;
+    margin-right: 10pt;
+}
