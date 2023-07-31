@@ -4,7 +4,7 @@ Current version uses the arXiv API scraper based on
 
 https://github.com/Mahdisadjadi/arxivscraper
 
-In its current stat, it can be tested by running a local server. To do so, clone the repository and open a terminal on that directory. Then use 
+In its current state, it can be tested by running a local server. To do so, clone the repository and open a terminal on that directory. Then use 
 `python manage.py runserver`
 
 and visit on your browser:
