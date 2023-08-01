@@ -2,4 +2,5 @@
 *.pyc
 *.pyo
 .vscode
+requirements_old.txt
 
