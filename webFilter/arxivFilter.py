@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from fuzzywuzzy import fuzz as metric
+from thefuzz import fuzz as metric
 import datetime
 import pytz
 # import imaplib

@@ -13,15 +13,6 @@ import time
 import sys
 from typing import Dict, List
 
-PYTHON3 = sys.version_info[0] == 3
-if PYTHON3:
-    # from urllib.parse import urlencode
-    from urllib.request import urlopen
-    from urllib.error import HTTPError
-else:
-    # from urllib import urlencode
-    from urllib2 import HTTPError, urlopen
-
 from .constants import OAI, ARXIV, BASE
 
 
