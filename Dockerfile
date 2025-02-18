@@ -13,7 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Create a user to run the application with default id and group
 RUN groupadd -r appgrp -g 1000
 RUN useradd -u 1000 -g appgrp -s /bin/bash appuser
+RUN mkdir /home/appuser
+RUN chown -R appuser /home/appuser
 RUN chown -R appuser /app
 USER appuser
+
 
 EXPOSE 8000
