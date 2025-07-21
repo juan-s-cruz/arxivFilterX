@@ -6,12 +6,20 @@ Author: Mahdi Sadjadi (sadjadi.seyedmahdi[AT]gmail[DOT]com).
 
 Edited: Juan S. Cruz (jscruz19[AT]gmail[DOT]com)
 """
+
 from __future__ import print_function
+from urllib.error import HTTPError
+from urllib.request import urlopen
 import xml.etree.ElementTree as ET
 import datetime
 import time
 import sys
 from typing import Dict, List
+
+import logging as log
+
+
+logging = log.getLogger(__name__)
 
 from .constants import OAI, ARXIV, BASE
 
@@ -25,8 +33,9 @@ class Record(object):
     """
 
     def __init__(self, xml_record):
-        """if not isinstance(object,ET.Element):
-        raise TypeError("")"""
+        """
+        Initializes the Record object with the given xml record.
+        """
         self.xml = xml_record
         self.id = self._get_text(ARXIV, "id")
         self.url = "https://arxiv.org/abs/" + self.id
@@ -42,9 +51,7 @@ class Record(object):
     def _get_text(self, namespace: str, tag: str) -> str:
         """Extracts text from an xml field"""
         try:
-            return (
-                self.xml.find(namespace + tag).text.strip().replace("\n", " ")
-            )
+            return self.xml.find(namespace + tag).text.strip().replace("\n", " ")
         except:
             return ""
 
@@ -173,27 +180,29 @@ class Scraper(object):
         k = 1
         while True:
             try:
-                print("Fetching up to ", 1000 * k, "records...")
-                # print(url)
+                logging.info("Fetching up to %d records...", 1000 * k)
+                logging.info(url)
                 response = urlopen(url)
             except HTTPError as e:
                 if e.code == 503:
                     self.t = int(e.hdrs.get("retry-after", 30)) + 1
-                    # print(e.headers)
-                    print("Got 503. Retrying after {0:d} seconds.".format(self.t))
+                    logging.info(e.headers)
+                    logging.info(
+                        "Got 503. Retrying after {0:d} seconds.".format(self.t)
+                    )
                     time.sleep(self.t)
                     continue
                 else:
-                    print("Unknown error")
+                    logging.info("Unknown error")
                     raise
-            # print(response.read(10))
+            # logging.info(response.read(10))
             k += 1
             xml = response.read()
             root = ET.fromstring(xml)
             # for child in root:
-            #     print(child.tag, child.attrib)
+            #     logging.info(child.tag, child.attrib)
             records = root.findall(OAI + "ListRecords/" + OAI + "record")
-            # print(records)
+            # logging.info(records)
             for record in records:
                 meta = record.find(OAI + "metadata").find(ARXIV + "arXiv")
                 record = Record(meta).output()
@@ -226,8 +235,6 @@ class Scraper(object):
                 tx = time.time()
 
         t1 = time.time()
-        print("fetching is completed in {0:.1f} seconds.".format(t1 - t0))
-        print("Total number of records {:d}".format(len(ds)))
+        logging.info("fetching is completed in {0:.1f} seconds.".format(t1 - t0))
+        logging.info("Total number of records {:d}".format(len(ds)))
         return ds
-
-
