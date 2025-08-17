@@ -42,6 +42,28 @@
             line-height: 1.6;
             text-align: left;
         }
+
+        /* Loader animation */
+        .loader {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #b31b1b;
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -50,11 +72,31 @@
     <div class="container">
         <div class="description">
             <p>Your intelligent research paper filtering assistant.</p>
-            <p>Use our advanced search and filtering capabilities to find the most relevant papers on arXiv.</p>
+            <p>Our AI-system can provide you with brief descriptions of the different sub-branches of physics.</p>
             <br>
-            <p class="llm-response">{{ llm_says }}</p>
+            <form id="queryForm" style="margin-bottom: 1rem;" action="{% url 'explain' %}" method="post">
+                {% csrf_token %}
+                <input type="text" id="topic" name="topic" placeholder="Ask about a physics sub-branch..."
+                    style="width: 70%; padding: 0.5rem;">
+                <button type="submit"
+                    style="padding: 0.5rem 1rem; background-color: #b31b1b; color: white; border: none; border-radius: 2px;">Submit</button>
+            </form>
+            <!-- Output field for response -->
+            <br>
+            <div id="waitingAnimation" style="display:none; margin-top:1rem; text-align:center;">
+                <span class="loader"></span>
+                <span style="margin-left: 0.5rem;">Thinking...</span>
+            </div>
+            <div id="outputField" style="margin-top: 1rem; color: #444; font-size: 13pt;">
+                <p>{{explanation}}</p>
+            </div>
         </div>
     </div>
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', function () {
+            document.getElementById('waitingAnimation').style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>

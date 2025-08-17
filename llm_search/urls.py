@@ -11,4 +11,5 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("explain", views.explain, name="explain"),
 ]
