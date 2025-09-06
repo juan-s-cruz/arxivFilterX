@@ -7,4 +7,5 @@ requirements_old.txt
 *__pycache__
 *.sqlite3
 *.log
+data/lancedb
 models.json
