@@ -21,10 +21,9 @@ run_jupyter:
 	@docker run -it --rm --name $(CONTAINER_NAME) --env-file .env -p 8000:8000 --runtime=nvidia --gpus all -v $(PWD):/app -v $(LOCAL_MODEL_PATH):/app/llm_search/models $(IMAGE_NAME) sh -c 'jupyter notebook --ip=0.0.0.0 --port=8000 --allow-root --no-browser --NotebookApp.token="" --NotebookApp.password=""'
 
 clean:
-	@rm -rf __pycache__
-	@find . -type d -name "__pycache__" -exec rm -r
-	@rm -rf .venv
+	@rm -rf .venv;
+	@find . -type d -name "__pycache__" -exec rm -rf {} +;
 
 install_python_env:
 	python3 -m venv .venv
-	source .venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt
+	source .venv/bin/activate; pip install --upgrade pip; pip install --no-cache-dir -r requirements.txt
