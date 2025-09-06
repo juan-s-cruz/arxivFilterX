@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import logging
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 
@@ -31,6 +32,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s",
+)
 
 # Application definition
 

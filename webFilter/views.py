@@ -1,3 +1,5 @@
+import logging as log
+
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import Http404
@@ -9,6 +11,8 @@ import datetime
 from .models import Article
 from .models import Word
 from .arxivFilter import scorePaper, fetch_recent_papers
+
+logging = log.getLogger(__name__)
 
 default_length = 7
 
@@ -50,9 +54,10 @@ def index(request):
 
 # Updates the list of papers according to the request received, the days to look back and the length of the list
 def update(request, day_offset, no_to_display=default_length):
+    logging.info("Updating page...")
     date_request = datetime.date.today() - datetime.timedelta(days=day_offset)
     query_date = check_date(date_request)
-    # if len(Article.objects.filter(pub_date=query_date)) == 0:
+
     try:
         papers = fetch_recent_papers(query_date)
         for paper in papers:
@@ -90,8 +95,7 @@ def update(request, day_offset, no_to_display=default_length):
                 myNewArt.save()
     except:
         raise Http404("Could not fetch recent papers.")
-    # else:
-    #     print('Papers already in database for ' + str(query_date))
+
     try:
         day_before = previous_working_day(date_request)
         articles = Article.objects.filter(
