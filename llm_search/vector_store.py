@@ -254,5 +254,5 @@ def search(
     db = _ensure_lancedb()
     tbl = db.open_table(table_name)
     q_vec = _embed_texts([query])[0]
-    results = tbl.search(q_vec).limit(k).to_list()
+    results = tbl.search(q_vec, ordering_field_name="pub_date").limit(k).to_list()
     return results

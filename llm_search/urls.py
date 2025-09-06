@@ -12,4 +12,5 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("explain", views.explain, name="explain"),
+    path("search", views.search, name="vector_search"),
 ]
