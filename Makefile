@@ -2,6 +2,7 @@
 
 IMAGE_NAME = "arxiv_filter"
 CONTAINER_NAME = "arxiv_filter"
+SERVING_PORT = 8000
 PWD = $(shell pwd)
 LOCAL_MODEL_PATH =$(shell cat .env | grep LOCAL_MODEL_PATH | cut -d= -f2)
 
@@ -15,10 +16,10 @@ run_bash:
 	@docker run -it --rm --name $(CONTAINER_NAME) --env-file .env --runtime=nvidia --gpus all -v $(PWD):/app -v $(LOCAL_MODEL_PATH):/app/llm_search/models $(IMAGE_NAME) bash
 
 run_server:
-	@docker run -it --rm --name $(CONTAINER_NAME) --env-file .env -p 127.0.0.1:8000:8000 --runtime=nvidia --gpus all -v $(PWD):/app -v $(LOCAL_MODEL_PATH):/app/llm_search/models $(IMAGE_NAME) sh -c 'python manage.py runserver 0.0.0.0:8000'
+	@docker run -it --rm --name $(CONTAINER_NAME) --env-file .env -p 127.0.0.1:$(SERVING_PORT):$(SERVING_PORT) --runtime=nvidia --gpus all -v $(PWD):/app -v $(LOCAL_MODEL_PATH):/app/llm_search/models $(IMAGE_NAME) sh -c 'python manage.py runserver 0.0.0.0:$(SERVING_PORT)'
 
 run_jupyter:
-	@docker run -it --rm --name $(CONTAINER_NAME) --env-file .env -p 8000:8000 --runtime=nvidia --gpus all -v $(PWD):/app -v $(LOCAL_MODEL_PATH):/app/llm_search/models $(IMAGE_NAME) sh -c 'jupyter notebook --ip=0.0.0.0 --port=8000 --allow-root --no-browser --NotebookApp.token="" --NotebookApp.password=""'
+	@docker run -it --rm --name $(CONTAINER_NAME) --env-file .env -p $(SERVING_PORT):$(SERVING_PORT) --runtime=nvidia --gpus all -v $(PWD):/app -v $(LOCAL_MODEL_PATH):/app/llm_search/models $(IMAGE_NAME) sh -c 'jupyter notebook --ip=0.0.0.0 --port=$(SERVING_PORT) --allow-root --no-browser --NotebookApp.token="" --NotebookApp.password=""'
 
 clean:
 	@rm -rf .venv;
