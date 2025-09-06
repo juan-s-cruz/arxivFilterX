@@ -4,3 +4,8 @@
 .vscode
 requirements_old.txt
 *.ipynb
+*__pycache__
+*.sqlite3
+*.log
+data/lancedb
+models.json

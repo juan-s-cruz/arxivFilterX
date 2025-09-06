@@ -3,7 +3,7 @@ ARXIV = "{http://arxiv.org/OAI/arXiv/}"
 BASE = "https://export.arxiv.org/oai2?verb=ListRecords&"
 
 
-# catgories
+# categories
 cats = [
     "astro-ph",
     "cond-mat",
@@ -23,6 +23,7 @@ cats = [
     "q-bio",
     "q-fin",
     "stat",
+    "cs",
 ]
 subcats = {
     "cond-mat": [
@@ -127,7 +128,14 @@ subcats = {
         "q-bio.TO",
     ],
     "nucl-th": [],
-    "stat": ["stat.AP", "stat.CO", "stat.ML", "stat.ME", "stat.OT", "stat.TH"],
+    "stat": [
+        "stat.AP",
+        "stat.CO",
+        "stat.ME",
+        "stat.ML",
+        "stat.OT",
+        "stat.TH",
+    ],
     "hep-lat": [],
     "astro-ph": [
         "astro-ph.GA",
@@ -136,5 +144,47 @@ subcats = {
         "astro-ph.HE",
         "astro-ph.IM",
         "astro-ph.SR",
+    ],
+    "cs": [
+        "cs.AI",
+        "cs.AR",
+        "cs.CC",
+        "cs.CE",
+        "cs.CG",
+        "cs.CL",
+        "cs.CR",
+        "cs.CV",
+        "cs.CY",
+        "cs.DB",
+        "cs.DC",
+        "cs.DL",
+        "cs.DM",
+        "cs.DS",
+        "cs.ET",
+        "cs.FL",
+        "cs.GL",
+        "cs.GR",
+        "cs.GT",
+        "cs.HC",
+        "cs.IR",
+        "cs.IT",
+        "cs.LG",
+        "cs.LO",
+        "cs.MA",
+        "cs.MM",
+        "cs.MS",
+        "cs.NA",
+        "cs.NE",
+        "cs.NI",
+        "cs.OH",
+        "cs.OS",
+        "cs.PF",
+        "cs.PL",
+        "cs.RO",
+        "cs.SC",
+        "cs.SD",
+        "cs.SE",
+        "cs.SI",
+        "cs.SY",
     ],
 }
