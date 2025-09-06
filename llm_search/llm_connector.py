@@ -13,7 +13,7 @@ transformers.logging.set_verbosity_error()
 if torch.cuda.is_available():
     torch.device("cuda:0")
 
-model_location = "llm_search/models"
+model_location = "llm_search/models/phi4"
 
 tokenizer = AutoTokenizer.from_pretrained(model_location)
 
